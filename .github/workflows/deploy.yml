@@ -23,6 +23,10 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
 
+      - name: Create target directory on server
+        run: |
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "mkdir -p /home/${{ secrets.SERVER_USER }}/my-site"
+
       - name: Copy project files to server via rsync
         run: |
           mkdir -p ~/.ssh
