@@ -37,11 +37,6 @@ jobs:
         run: |
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
             cd /home/${{ secrets.SERVER_USER }}/my-site
-            if command -v docker-compose &> /dev/null; then
-              docker-compose down
-              docker-compose up -d --build
-            else
-              docker compose down
-              docker compose up -d --build
-            fi
+            docker-compose down
+            docker-compose up -d --build
           EOF
