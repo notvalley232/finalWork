@@ -20,6 +20,8 @@ jobs:
 
       - name: Copy project files to server via rsync
         run: |
+          mkdir -p ~/.ssh
+          echo "StrictHostKeyChecking no" >> ~/.ssh/config
           rsync -avz --exclude='.git' --exclude='node_modules' ./ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/home/${{ secrets.SERVER_USER }}/my-site
 
       - name: SSH into server and deploy with Docker Compose
