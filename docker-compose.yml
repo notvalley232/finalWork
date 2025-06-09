@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  personal-site:
+    build: .
+    container_name: personal-site
+    ports:
+      - "80:80"
+    restart: always
