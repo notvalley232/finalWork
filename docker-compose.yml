@@ -3,7 +3,7 @@ version: '3'
 services:
   personal-site:
     build: .
-    container_name: lllrrrhhh/lrh-profile-image
+    container_name: lrh-profile-image
     ports:
       - "8080:80"
     volumes:
