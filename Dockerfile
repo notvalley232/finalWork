@@ -4,12 +4,19 @@ FROM nginx:alpine
 # 将本地html文件夹复制到容器中的Nginx默认网站目录
 COPY lrh_profile_html/ /usr/share/nginx/html/
 
+# 设置目录权限
+RUN chown -R nginx:nginx /usr/share/nginx/html && \
+    chmod -R 755 /usr/share/nginx/html
+
 # 添加健康检查
 HEALTHCHECK --interval=30s --timeout=3s \
   CMD wget --quiet --tries=1 --spider http://localhost:80 || exit 1
 
 # 暴露80端口
 EXPOSE 80
+
+# 使用非root用户运行nginx
+USER nginx
 
 # 启动Nginx服务
 CMD ["nginx", "-g", "daemon off;"]

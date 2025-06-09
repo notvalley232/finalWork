@@ -8,10 +8,11 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./lrh_profile_html:/usr/share/nginx/html
+      - ./lrh_profile_html:/usr/share/nginx/html:ro
     restart: always
     networks:
       - web-network
+    user: nginx
 
 networks:
   web-network:
