@@ -1,9 +1,11 @@
-version: '3.8'
+version: '3'
 
 services:
   personal-site:
     build: .
-    container_name: personal-site
+    container_name: lllrrrhhh/lrh-profile-image
     ports:
-      - "80:80"
+      - "8080:80"
+    volumes:
+      - ./lrh_profile_html:/usr/share/nginx/html
     restart: always
