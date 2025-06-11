@@ -25,7 +25,8 @@ jobs:
 
       - name: Create target directory on server
         run: |
-          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "mkdir -p /home/${{ secrets.SERVER_USER }}/my-site"
+	  cat ~/.ssh/id_rsa.pub
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "mkdir -p /${{ secrets.SERVER_USER }}/my-site"
 
       - name: Build and save Docker image
         run: |
