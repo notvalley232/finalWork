@@ -10,7 +10,7 @@ COPY ./lrh_profile_html/html/ /usr/share/nginx/html/
 # 设置目录权限，确保nginx用户可读
 RUN chown -R nginx:nginx /usr/share/nginx/html && \
     chmod -R 755 /usr/share/nginx/html
-
+RUN mkdir -p /var/cache/nginx/client_temp && chmod -R 755 /var/cache/nginx
 # 健康检查
 HEALTHCHECK --interval=30s --timeout=3s \
   CMD wget --quiet --tries=1 --spider http://localhost:80 || exit 1
