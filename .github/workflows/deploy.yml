@@ -27,19 +27,12 @@ jobs:
         run: |
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "mkdir -p /${{ secrets.SERVER_USER }}/my-site"
 
-      - name: Build and save Docker image
-        run: |
-          ls
-          docker build -t lrh-profile:latest .
-          docker save lrh-profile:latest > lrh-profile.tar
-
       - name: Copy project files and image to server
         run: |
           mkdir -p ~/.ssh
           echo "StrictHostKeyChecking no" >> ~/.ssh/config
           rsync -avz --exclude='.git' --exclude='node_modules' ./ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/home/${{ secrets.SERVER_USER }}/my-site
-          scp lrh-profile.tar ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/home/${{ secrets.SERVER_USER }}/my-site/
-
+         
       - name: SSH into server and deploy with Docker Compose
         run: |
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
@@ -48,18 +41,7 @@ jobs:
               sudo apt-get update
               sudo apt-get install -y docker-compose
             fi
-            docker load < lrh-profile.tar
-            docker-compose down
-            docker-compose up -d
+            docker build -t mysite .
+            docker run -itd -p 80:80 mysite
             
-            # 等待容器启动并检查健康状态
-            echo "Waiting for container to start..."
-            sleep 10
-            if docker ps | grep -q lrh-profile-image; then
-              echo "Container started successfully"
-              docker logs lrh-profile-image
-            else
-              echo "Container failed to start"
-              exit 1
-            fi
           EOF
