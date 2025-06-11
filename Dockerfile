@@ -5,7 +5,7 @@ FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
 
 # 复制本地html文件夹到Nginx默认网站目录
-COPY lrh_profile_html/html/ /usr/share/nginx/html/
+COPY ./lrh_profile_html/html/ /usr/share/nginx/html/
 
 # 设置目录权限，确保nginx用户可读
 RUN chown -R nginx:nginx /usr/share/nginx/html && \
