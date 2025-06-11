@@ -16,7 +16,7 @@ jobs:
       - name: Set up SSH key
         uses: webfactory/ssh-agent@v0.5.4
         with:
-          ssh-private-key: ${{ secrets.TencentKey }}
+          ssh-private-key: ${{ secrets.TENCENTKEY }}
 
       - name: Add server to known_hosts
         run: |
