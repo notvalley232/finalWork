@@ -29,6 +29,7 @@ jobs:
 
       - name: Build and save Docker image
         run: |
+          ls
           docker build -t lrh-profile:latest .
           docker save lrh-profile:latest > lrh-profile.tar
 
