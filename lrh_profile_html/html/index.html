@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runhong Liao - Software Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%);
+            color: #333333;
+            overflow-x: hidden;
+        }
+
+        /* Animated background particles */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #007bff;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #333333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #007bff;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: #007bff;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Header Section */
+        .header {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .profile-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        /* Profile Image */
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 4px solid #007bff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3);
+            background: #ffffff;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Animated border for profile */
+        .profile-image::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #007bff, #0056b3, #6f42c1, #007bff);
+            animation: borderRotate 3s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes borderRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #007bff, #6f42c1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #6c757d;
+            margin-bottom: 2rem;
+        }
+
+        .typing-effect {
+            border-right: 2px solid #007bff;
+            animation: blink 1s infinite;
+            color: #495057;
+        }
+
+        @keyframes blink {
+            0%, 50% { border-color: #007bff; }
+            51%, 100% { border-color: transparent; }
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #007bff;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(45deg, #007bff, #6f42c1);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #495057;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(0, 123, 255, 0.3);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: #007bff;
+            box-shadow: 0 10px 25px rgba(0, 123, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #007bff;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 123, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .skill-category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 123, 255, 0.2);
+        }
+
+        .skill-category h3 {
+            color: #007bff;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            padding: 0.5rem 0;
+            color: #495057;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .skill-list li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #007bff;
+        }
+
+        /* Experience Section */
+        .experience-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #007bff, #6f42c1);
+        }
+
+        .experience-item {
+            position: relative;
+            margin-bottom: 3rem;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-left: 2rem;
+            border: 1px solid rgba(0, 123, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 2rem;
+            width: 12px;
+            height: 12px;
+            background: #007bff;
+            border-radius: 50%;
+            border: 3px solid #ffffff;
+        }
+
+        .experience-title {
+            color: #007bff;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-period {
+            color: #6f42c1;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .experience-item p {
+            color: #495057;
+        }
+
+        /* Achievements Section */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .achievement-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(0, 123, 255, 0.3);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-10px);
+            border-color: #007bff;
+            box-shadow: 0 20px 40px rgba(0, 123, 255, 0.2);
+        }
+
+        .achievement-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .achievement-title {
+            color: #007bff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-card p {
+            color: #495057;
+        }
+
+        /* Contact Section */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 123, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 123, 255, 0.2);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .contact-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #007bff;
+        }
+
+        .contact-value {
+            color: #495057;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .profile-image {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation" id="bgAnimation"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#achievements">Achievements</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header Section -->
+    <section id="home" class="header">
+        <div class="hero-content">
+            <div class="profile-container">
+                <!-- Profile Image -->
+                <div class="profile-image">
+                    <img src="resourse/lrhPhoto.jpg" alt="Runhong Liao" loading="lazy">
+                </div>
+            </div>
+            <h1 class="hero-title">Runhong Liao</h1>
+            <p class="hero-subtitle">Software Engineering Student</p>
+            <p class="typing-effect" id="typingText">Passionate about coding and innovation</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section fade-in">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>I am a dedicated Software Engineering student at North Minzu University with a strong passion for technology and innovation. Currently pursuing my bachelor's degree with a GPA of 3.7/5, ranking in the top 5 of my major.</p>
+                <p>My expertise spans multiple programming languages including Java, Python, and web technologies. I enjoy solving complex problems using data structures and algorithms, and I'm always eager to learn new technologies and improve my skills.</p>
+                <p>Beyond academics, I actively participate in student organizations and take on leadership roles, developing both technical and interpersonal skills that prepare me for the professional world.</p>
+            </div>
+            <div class="about-stats">
+                <div class="stat-card">
+                    <div class="stat-number">3.7</div>
+                    <div>GPA / 5.0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Top 5</div>
+                    <div>In Major</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2027</div>
+                    <div>Graduation</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3+</div>
+                    <div>Languages</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section fade-in">
+        <h2>Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>💻 Programming Languages</h3>
+                <ul class="skill-list">
+                    <li>Java (Advanced)</li>
+                    <li>Python (Intermediate)</li>
+                    <li>HTML/CSS/JavaScript</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>🗄️ Database & Tools</h3>
+                <ul class="skill-list">
+                    <li>MySQL</li>
+                    <li>Git & GitHub</li>
+                    <li>Linux Commands</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>🛠️ Development Environment</h3>
+                <ul class="skill-list">
+                    <li>IntelliJ IDEA</li>
+                    <li>VS Code</li>
+                    <li>PyCharm</li>
+                    <li>DataGrip</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>📊 Python Libraries</h3>
+                <ul class="skill-list">
+                    <li>NumPy</li>
+                    <li>Pandas</li>
+                    <li>Matplotlib</li>
+                    <li>Seaborn</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>🧠 Core Competencies</h3>
+                <ul class="skill-list">
+                    <li>Data Structures & Algorithms</li>
+                    <li>Object-Oriented Programming</li>
+                    <li>Operating Systems</li>
+                    <li>Computer Networks</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>🤖 AI Tools</h3>
+                <ul class="skill-list">
+                    <li>Trae</li>
+                    <li>CodeBuddy</li>
+                    <li>Various AI Assistants</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section fade-in">
+        <h2>Campus Experience</h2>
+        <div class="experience-timeline">
+            <div class="experience-item">
+                <div class="experience-title">Organization Department Leader</div>
+                <div class="experience-period">Student Union • June 2024 - June 2025</div>
+                <p>Responsible for member relationship management, new member elections and development work. Assist teachers in reviewing member and party member archives, and coordinate educational activities for members and party members.</p>
+            </div>
+            <div class="experience-item">
+                <div class="experience-title">League Branch Secretary</div>
+                <div class="experience-period">Class Committee • September 2023 - Present</div>
+                <p>Organize class-based League branch activities, maintain meeting records and summaries, track political status changes of class members, and handle recommendation work for League activists.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="section fade-in">
+        <h2>Achievements & Honors</h2>
+        <div class="achievements-grid">
+            <div class="achievement-card">
+                <div class="achievement-icon">🥇</div>
+                <div class="achievement-title">Blue Bridge Cup Java Group</div>
+                <p>Provincial First Prize</p>
+            </div>
+            <div class="achievement-card">
+                <div class="achievement-icon">🏆</div>
+                <div class="achievement-title">University Innovation Competition</div>
+                <p>Special Prize (2nd in University)</p>
+            </div>
+            <div class="achievement-card">
+                <div class="achievement-icon">📜</div>
+                <div class="achievement-title">CET-4 Certificate</div>
+                <p>College English Test Level 4</p>
+            </div>
+            <div class="achievement-card">
+                <div class="achievement-icon">💡</div>
+                <div class="achievement-title">Software Copyright</div>
+                <p>City Agricultural Direct Sales Platform</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section fade-in">
+        <h2>Contact Information</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-icon">📧</div>
+                <div class="contact-label">Email</div>
+                <div class="contact-value">18760191230a@gmail.com</div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">📱</div>
+                <div class="contact-label">Phone</div>
+                <div class="contact-value">18760191230</div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">💬</div>
+                <div class="contact-label">QQ</div>
+                <div class="contact-value">2769611058</div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <div class="contact-label">Location</div>
+                <div class="contact-value">Longyan City, Fujian Province</div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Create animated background particles
+        function createParticles() {
+            const container = document.getElementById('bgAnimation');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Typing effect
+        function typeText() {
+            const texts = [
+                'Passionate about coding and innovation',
+                'Building the future with technology',
+                'Always learning, always growing',
+                'Ready to tackle new challenges'
+            ];
+            let currentTextIndex = 0;
+            let currentCharIndex = 0;
+            const typingElement = document.getElementById('typingText');
+
+            function type() {
+                if (currentCharIndex < texts[currentTextIndex].length) {
+                    typingElement.textContent = texts[currentTextIndex].substring(0, currentCharIndex + 1);
+                    currentCharIndex++;
+                    setTimeout(type, 100);
+                } else {
+                    setTimeout(erase, 2000);
+                }
+            }
+
+            function erase() {
+                if (currentCharIndex > 0) {
+                    typingElement.textContent = texts[currentTextIndex].substring(0, currentCharIndex - 1);
+                    currentCharIndex--;
+                    setTimeout(erase, 50);
+                } else {
+                    currentTextIndex = (currentTextIndex + 1) % texts.length;
+                    setTimeout(type, 500);
+                }
+            }
+
+            type();
+        }
+
+        // Scroll animations
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        function setupSmoothScrolling() {
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                });
+            });
+        }
+
+        // Initialize all animations and effects
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            typeText();
+            setupSmoothScrolling();
+            handleScrollAnimations();
+        });
+
+        // Handle scroll events
+        window.addEventListener('scroll', handleScrollAnimations);
+    </script>
+</body>
+</html>
