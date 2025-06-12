@@ -483,7 +483,7 @@
             <li><a href="#skills">Skills</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#achievements">Achievements</a></li>
-            <li><a href="/todo.html">Contact</a></li>
+            <li><a href="/todo.html">Todo</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
@@ -729,17 +729,33 @@
 
         // Smooth scrolling for navigation links
         function setupSmoothScrolling() {
-            document.querySelectorAll('nav a').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
+    document.querySelectorAll('nav a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            console.log(href);
+            
+            // 如果是外部链接或特定页面，直接跳转
+            if(href === "/todo.html" || href.startsWith('http')) {
+                window.location = href;
+                return; // 直接返回，不执行后面的代码
+            }
+            
+            e.preventDefault();
+            
+            try {
+                const target = document.querySelector(href);
+                if(target) {
                     target.scrollIntoView({
                         behavior: 'smooth',
                         block: 'start'
                     });
-                });
-            });
-        }
+                }
+            } catch(err) {
+                console.error('Invalid selector or target not found:', href);
+            }
+        });
+    });
+}
 
         // Initialize all animations and effects
         document.addEventListener('DOMContentLoaded', function() {
