@@ -483,7 +483,7 @@
             <li><a href="#skills">Skills</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#achievements">Achievements</a></li>
-            <li><a href="/todo.html">Todo</a></li>
+            <li><a href="//82.157.210.143:81/todo.html">Todo</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
@@ -735,7 +735,7 @@
             console.log(href);
             
             // 如果是外部链接或特定页面，直接跳转
-            if(href === "/todo.html" || href.startsWith('http')) {
+            if(href.endsWith('/todo.html')) {
                 window.location = href;
                 return; // 直接返回，不执行后面的代码
             }
