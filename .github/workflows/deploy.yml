@@ -42,6 +42,6 @@ jobs:
               sudo apt-get install -y docker-compose
             fi
             docker build -t mysite .
-            docker run -itd -p 80:80 mysite
+            docker run -itd -p 80:80 -p 81:81 mysite
             
           EOF
